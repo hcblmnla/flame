@@ -1,10 +1,12 @@
 package flame;
 
-import org.pmw.tinylog.Logger;
+import lombok.experimental.UtilityClass;
+import picocli.CommandLine;
 
+@UtilityClass
 public class Main {
 
     public static void main(final String[] args) {
-        Logger.debug("Checking PR..");
+        new CommandLine(FlameCommand.class).execute(args);
     }
 }
