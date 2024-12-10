@@ -1,6 +1,6 @@
 package flame.algorithm.generator;
 
-import flame.function.affine.Affine;
+import flame.image.AtomicColoredImage;
 import flame.image.ColoredPixel;
 import flame.image.Image;
 import lombok.experimental.SuperBuilder;
@@ -17,7 +17,7 @@ public class MultiThreadGenerator extends AbstractGenerator {
     @Override
     public void handleSamples(final int threads, final Runnable sampler)
         throws InterruptedException {
-        // newVirtualThreadPerTaskExecutor?
+        // newVirtualThreadPerTaskExecutor ?
         try (var executor = Executors.newFixedThreadPool(threads)) {
             Collections.nCopies(threads, sampler)
                 .forEach(executor::submit);
@@ -29,15 +29,7 @@ public class MultiThreadGenerator extends AbstractGenerator {
     }
 
     @Override
-    public void setPixel(
-        final int x,
-        final int y,
-        final Image<ColoredPixel> image,
-        final Affine affine
-    ) {
-        var pixel = image.pixel(x, y);
-        synchronized (pixel) {
-            image.pixel(x, y, updateColor(affine, pixel).hit());
-        }
+    public Image<ColoredPixel> empty() {
+        return new AtomicColoredImage(width, height, compression, background);
     }
 }

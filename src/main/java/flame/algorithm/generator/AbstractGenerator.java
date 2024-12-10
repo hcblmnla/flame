@@ -5,7 +5,6 @@ import flame.function.Isomorphism;
 import flame.function.Variation;
 import flame.function.affine.Affine;
 import flame.image.ColoredPixel;
-import flame.image.CompressedImage;
 import flame.image.Image;
 import flame.util.ExtendedRandom;
 import lombok.experimental.SuperBuilder;
@@ -19,12 +18,13 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
 
     private static final int THRESHOLD = 20;
 
-    private final int width;
-    private final int height;
-    private final int compression;
+    protected final int width;
+    protected final int height;
+    protected final int compression;
+
+    protected final Color background;
 
     private final ImageProcessor<ColoredPixel> processor;
-    private final Color background;
     private final Random random;
 
     public static ColoredPixel updateColor(final Affine affine, final ColoredPixel pixel) {
@@ -39,10 +39,10 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
         );
     }
 
-    public abstract void setPixel(int x, int y, Image<ColoredPixel> image, Affine affine);
-
     public abstract void handleSamples(int threads, Runnable sampler)
         throws InterruptedException;
+
+    protected abstract Image<ColoredPixel> empty();
 
     @Override
     public Image<ColoredPixel> generate(
@@ -64,7 +64,7 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
         return image;
     }
 
-    protected void sample(
+    private void sample(
         final List<Affine> linear,
         final List<Variation<Affine>> nonLinear,
         final int iterations,
@@ -93,12 +93,9 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
                 if (!image.contains(x, y)) {
                     continue;
                 }
-                setPixel(x, y, image, affine);
+                var pixel = image.pixel(x, y);
+                image.pixel(x, y, updateColor(affine, pixel).hit());
             }
         }
-    }
-
-    public Image<ColoredPixel> empty() {
-        return new CompressedImage(width, height, background, compression);
     }
 }

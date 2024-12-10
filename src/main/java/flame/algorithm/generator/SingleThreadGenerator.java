@@ -1,6 +1,6 @@
 package flame.algorithm.generator;
 
-import flame.function.affine.Affine;
+import flame.image.ColoredImage;
 import flame.image.ColoredPixel;
 import flame.image.Image;
 import lombok.experimental.SuperBuilder;
@@ -14,13 +14,7 @@ public class SingleThreadGenerator extends AbstractGenerator {
     }
 
     @Override
-    public void setPixel(
-        final int x,
-        final int y,
-        final Image<ColoredPixel> image,
-        final Affine affine
-    ) {
-        var pixel = image.pixel(x, y);
-        image.pixel(x, y, updateColor(affine, pixel).hit());
+    public Image<ColoredPixel> empty() {
+        return new ColoredImage(width, height, compression, background);
     }
 }
