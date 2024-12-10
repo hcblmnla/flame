@@ -23,6 +23,8 @@
         <java.release>22</java.release>
 
         <!-- Core -->
+        <jspecify.version>1.0.0</jspecify.version>
+        <spotbugs.version>4.8.6</spotbugs.version>
         <lombok.version>1.18.34</lombok.version>
         <picocli.version>4.7.5</picocli.version>
 
@@ -39,9 +41,18 @@
     <dependencies>
         <!-- Core -->
         <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!-- CLI -->
@@ -88,9 +99,20 @@
         <dependencies>
             <!-- Core -->
             <dependency>
+                <groupId>org.jspecify</groupId>
+                <artifactId>jspecify</artifactId>
+                <version>${jspecify.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-annotations</artifactId>
+                <version>${spotbugs.version}</version>
+                <optional>true</optional>
             </dependency>
 
             <!-- CLI -->
