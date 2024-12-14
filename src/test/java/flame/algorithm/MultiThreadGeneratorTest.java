@@ -81,8 +81,8 @@ class MultiThreadGeneratorTest {
         var affine = Affine.defaults(random);
         var vars = List.of((Variation<Affine>) new SphericalVariation());
 
-        int samples = 100_000;
-        int it = 10;
+        int samples = 2_000_000;
+        int it = 1;
 
         // When
         long singleTime = measureExecutionTime(() -> single.generate(affine, vars, samples, it, 1, 1));
