@@ -15,6 +15,6 @@ public interface Generator<I, F extends LinearFunction> {
         int samples,
         int iterations,
         int symmetries,
-        int threads
+        int nThreads
     ) throws InterruptedException;
 }

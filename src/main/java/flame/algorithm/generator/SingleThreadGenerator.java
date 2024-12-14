@@ -6,10 +6,10 @@ import flame.image.Image;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-public class SingleThreadGenerator extends AbstractGenerator {
+public final class SingleThreadGenerator extends AbstractFlameGenerator {
 
     @Override
-    public void handleSamples(final int threads, final Runnable sampler) {
+    public void handleSamples(final int nThreads, final Runnable sampler) {
         sampler.run();
     }
 

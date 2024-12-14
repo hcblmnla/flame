@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
-public class AtomicColoredImage extends AbstractColoredImage<AtomicReferenceArray<ColoredPixel>> {
+public final class AtomicColoredImage extends AbstractColoredImage<AtomicReferenceArray<ColoredPixel>> {
 
     public AtomicColoredImage(final int width, final int height, final int compression, final Color background) {
         super(width, height, compression, background);

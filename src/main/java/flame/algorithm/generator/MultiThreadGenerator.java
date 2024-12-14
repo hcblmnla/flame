@@ -10,16 +10,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @SuperBuilder
-public class MultiThreadGenerator extends AbstractGenerator {
+public final class MultiThreadGenerator extends AbstractFlameGenerator {
 
     private static final int AWAITING_MINUTES = 5;
 
     @Override
-    public void handleSamples(final int threads, final Runnable sampler)
+    public void handleSamples(final int nThreads, final Runnable sampler)
         throws InterruptedException {
-        // newVirtualThreadPerTaskExecutor ?
-        try (var executor = Executors.newFixedThreadPool(threads)) {
-            Collections.nCopies(threads, sampler)
+        try (var executor = Executors.newFixedThreadPool(nThreads)) {
+            Collections.nCopies(nThreads, sampler)
                 .forEach(executor::submit);
             executor.shutdown();
             if (!executor.awaitTermination(AWAITING_MINUTES, TimeUnit.MINUTES)) {

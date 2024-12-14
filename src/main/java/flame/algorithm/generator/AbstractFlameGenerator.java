@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Random;
 
 @SuperBuilder
-public abstract class AbstractGenerator implements Generator<ColoredPixel, Affine> {
+public abstract sealed class AbstractFlameGenerator
+    implements Generator<ColoredPixel, Affine>
+    permits SingleThreadGenerator, MultiThreadGenerator {
 
     private static final int THRESHOLD = 20;
 
@@ -32,6 +34,7 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
         if (pixel.hitCount() == 0) {
             return pixel.color(color);
         }
+
         return pixel.color(
             (pixel.red() + color.getRed()) / 2,
             (pixel.green() + color.getGreen()) / 2,
@@ -39,7 +42,7 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
         );
     }
 
-    public abstract void handleSamples(int threads, Runnable sampler)
+    public abstract void handleSamples(int nThreads, Runnable sampler)
         throws InterruptedException;
 
     protected abstract Image<ColoredPixel> empty();
@@ -51,15 +54,17 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
         final int samples,
         final int iterations,
         final int symmetries,
-        final int threads
+        final int nThreads
     ) throws InterruptedException {
         var image = empty();
         var isomorphism = Isomorphism.biUnit(width, height);
-        handleSamples(threads, () -> {
-            for (int sample = 0; sample < samples / threads; sample++) {
+
+        handleSamples(nThreads, () -> {
+            for (int sample = 0; sample < samples / nThreads; sample++) {
                 sample(linear, nonLinear, iterations, symmetries, image, isomorphism);
             }
         });
+
         processor.accept(image);
         return image;
     }
@@ -78,6 +83,7 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
             point = ExtendedRandom
                 .element(nonLinear, random)
                 .apply(affine.apply(point), affine);
+
             if (iteration < 0) {
                 continue;
             }
@@ -88,11 +94,13 @@ public abstract class AbstractGenerator implements Generator<ColoredPixel, Affin
                     width * compression,
                     height * compression
                 );
+
                 int x = rotated.x();
                 int y = rotated.y();
                 if (!image.contains(x, y)) {
                     continue;
                 }
+
                 var pixel = image.pixel(x, y);
                 image.pixel(x, y, updateColor(affine, pixel).hit());
             }

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class ColoredImage extends AbstractColoredImage<ColoredPixel[]> {
+public final class ColoredImage extends AbstractColoredImage<ColoredPixel[]> {
 
     public ColoredImage(final int width, final int height, final int compression, final Color background) {
         super(width, height, compression, background);

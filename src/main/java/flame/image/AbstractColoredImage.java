@@ -5,7 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractColoredImage<G> implements Image<ColoredPixel> {
+public abstract sealed class AbstractColoredImage<G>
+    implements Image<ColoredPixel>
+    permits ColoredImage, AtomicColoredImage {
 
     protected final G grid;
     private final int width;
