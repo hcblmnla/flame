@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Version -->
-        <revision>1.0.0</revision>
+        <revision>42.0.42</revision>
 
         <!-- Language -->
         <maven.version>3.8.8</maven.version>
