@@ -126,7 +126,9 @@ public class FlameCommand implements Callable<Void> {
 
     @Override
     public Void call() {
-        try (var writer = new BufferedWriter(new OutputStreamWriter(System.err, StandardCharsets.UTF_8))) {
+        try (var writer = new BufferedWriter(new OutputStreamWriter(
+            System.err, StandardCharsets.UTF_8
+        ))) {
             try {
                 callWithArguments(
                     writer,
@@ -138,12 +140,12 @@ public class FlameCommand implements Callable<Void> {
                     Integer.parseInt(threads),
                     ImageFormat.valueOf(extension.toUpperCase())
                 );
-            } catch (final UnknownArgumentException | UnknownVariationException e) {
-                log(writer, e.getMessage());
             } catch (final NumberFormatException e) {
                 log(writer, "Could not parse number parameters");
             } catch (final InterruptedException e) {
                 log(writer, "Multi-thread exception occurred");
+            } catch (final UnknownArgumentException | IllegalArgumentException e) {
+                log(writer, e.getMessage());
             }
         } catch (final IOException e) {
             Logger.error("Critical I/O exception occurred, reason: {}", e.getMessage());
