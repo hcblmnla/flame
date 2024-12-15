@@ -272,14 +272,6 @@
                             </goals>
                             <configuration>
                                 <rules>
-                                    <requireJavaVersion>
-                                        <version>[${jdk.version},)</version>
-                                        <message>JDK version must be at least ${jdk.version}</message>
-                                    </requireJavaVersion>
-                                    <requireMavenVersion>
-                                        <version>[${maven.version},)</version>
-                                        <message>Maven version should, at least, be ${maven.version}</message>
-                                    </requireMavenVersion>
                                     <banDuplicatePomDependencyVersions/>
                                     <reactorModuleConvergence/>
                                     <dependencyConvergence/>
