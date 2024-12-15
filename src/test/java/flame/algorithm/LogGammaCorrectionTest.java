@@ -17,7 +17,6 @@ public class LogGammaCorrectionTest {
             {new ColoredPixel(1, 1, 1, 100), new ColoredPixel(10, 10, 10, 10)},
             {new ColoredPixel(10, 10, 10, 10), new ColoredPixel(10, 10, 10, 1)}
         };
-
         var processed = new ColoredPixel[][]{
             {new ColoredPixel(1, 1, 1, 100), new ColoredPixel(2, 2, 2, 10)},
             {new ColoredPixel(2, 2, 2, 10), new ColoredPixel(0, 0, 0, 1)}

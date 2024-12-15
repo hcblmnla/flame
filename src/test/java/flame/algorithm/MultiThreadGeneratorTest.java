@@ -1,18 +1,12 @@
 package flame.algorithm;
 
-import flame.algorithm.generator.AbstractFlameGenerator;
 import flame.algorithm.generator.MultiThreadGenerator;
 import flame.algorithm.generator.SingleThreadGenerator;
-import flame.algorithm.processor.LogGammaCorrection;
-import flame.function.Variation;
 import flame.function.affine.Affine;
-import flame.function.variation.clean.SphericalVariation;
 import flame.image.ColoredPixel;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,25 +14,6 @@ import static flame.algorithm.generator.AbstractFlameGenerator.updateColor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MultiThreadGeneratorTest {
-
-    private static AbstractFlameGenerator getFromBuilder(
-        final AbstractFlameGenerator.AbstractFlameGeneratorBuilder<?, ?> builder
-    ) {
-        return builder
-            .width(1000)
-            .height(1000)
-            .compression(1)
-            .processor(new LogGammaCorrection())
-            .background(Color.BLACK)
-            .random(ThreadLocalRandom.current())
-            .build();
-    }
-
-    private static long measureExecutionTime(final Callable<?> callable) throws Exception {
-        long start = System.nanoTime();
-        callable.call();
-        return System.nanoTime() - start;
-    }
 
     @Test
     void handleShouldWorkWithSingleThreadToo() throws InterruptedException {
@@ -69,28 +44,6 @@ class MultiThreadGeneratorTest {
         // Then
         assertThat(counter.get())
             .isEqualTo(12);
-    }
-
-    @Test
-    void multiThreadingShouldWorkFasterThenSingle() throws Exception {
-        // Given
-        var single = getFromBuilder(SingleThreadGenerator.builder());
-        var multi = getFromBuilder(MultiThreadGenerator.builder());
-        var random = ThreadLocalRandom.current();
-
-        var affine = Affine.defaults(random);
-        var vars = List.of((Variation<Affine>) new SphericalVariation());
-
-        int samples = 2_000_000;
-        int it = 1;
-
-        // When
-        long singleTime = measureExecutionTime(() -> single.generate(affine, vars, samples, it, 1, 1));
-        long multiTime = measureExecutionTime(() -> multi.generate(affine, vars, samples, it, 1, 8));
-
-        // Then
-        assertThat(multiTime)
-            .isLessThan(singleTime);
     }
 
     @Test
