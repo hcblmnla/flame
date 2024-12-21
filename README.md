@@ -1,12 +1,12 @@
-## Flame
+# Flame
 
 The Chaos game implementation
 
-### Example
+## Example
 
 ![fhd](generated/fhd.png)
 
-### Usage
+## Usage
 
 ```shell
 java -jar flame.jar -h
