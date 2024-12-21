@@ -176,7 +176,7 @@ public class ZermeloTest {
     }
 
     /**
-     * filter(P(set) := sizeIsN(2, set) & sizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
+     * filter(P(set) := sizeIsTwo(set) & sizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
      */
     public static <A> List<List<A>> d(final List<A> a, final List<A> b) {
         return filter((List<A> set) -> sizeIsTwo(set) && sizeIsOne(b(set, b)))
