@@ -1,12 +1,16 @@
 ## Flame
 
-The Chaos game implementation
+The **multithreading** Chaos game implementation
 
 ### Example
+
+**8K** image (full hd version you can find [here](generated)):
 
 ![8k](generated/8k.png)
 
 ### Usage
+
+Possible options are below:
 
 ```shell
 java -jar flame.jar -h
