@@ -1,58 +1,26 @@
 # Flame
 
-The Chaos game implementation. Both the code and the artifact are here.
+The Chaos game implementation. Pure Java with picocli
 
 ## Example
 
 Was created with default parameters:
 
-```
-java -jar flame.jar
-```
-
 ![example](generated/example.png)
 
 ## Usage
 
-Clone repo (SSH):
+Clone repo, build project:
 
-```
-git clone git@github.com:hcblmnla/flame.git
-```
-
-Change directory:
-
-```
+```shell
+git clone https://github.com/hcblmnla/flame.git flame
 cd flame
+mvn clean compile assembly:single
+mv target/flame-1.0.0-jar-with-dependencies.jar flame.jar
 ```
 
-Print usage:
+And print usage:
 
-```
+```shell
 java -jar flame.jar --help
 ```
-
-Possible output:
-
-```
-Usage: flame [-hV] [-f=<extension>] [-i=<iterations>] [-r=<resolution>]
-             [-s=<samples>] [-sym=<symmetries>] [-t=<nThreads>]
-             [-v=<variations>...]...
-  -f, --format=<extension>
-  -h, --help                 Show this help message and exit.
-  -i, --iterations=<iterations>
-
-  -r, --resolution=<resolution>
-
-  -s, --samples=<samples>
-      -sym, --symmetries=<symmetries>
-
-  -t, --threads=<nThreads>
-  -v, --variations=<variations>...
-
-  -V, --version              Print version information and exit.
-```
-
-## Notes
-
-* 1 TODO: in flame.function.affine.Affine

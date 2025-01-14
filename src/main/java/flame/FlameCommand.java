@@ -48,7 +48,7 @@ public class FlameCommand implements Callable<Void> {
     @CommandLine.Option(names = {"-sym", "--symmetries"}, defaultValue = "1")
     String symmetries;
 
-    @CommandLine.Option(names = {"-t", "--threads"}, defaultValue = "8")
+    @CommandLine.Option(names = {"-t", "--nThreads"}, defaultValue = "8")
     String nThreads;
 
     @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "png")
