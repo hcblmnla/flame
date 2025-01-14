@@ -47,16 +47,16 @@ public class ZermeloTest {
             .toList();
     }
 
-    /**
-     * flatten(pair(a, b))
-     */
+    //
+    // flatten(pair(a, b))
+    //
     private static <A> List<A> concat(final List<A> a, final List<A> b) {
         return flatten(pair(a, b));
     }
 
-    /**
-     * filter(P(b) := forall x. x in a -> b in x)(flatten A)
-     */
+    //
+    // filter(P(b) := forall x. x in a -> b in x)(flatten A)
+    //
     public static <A> List<A> a(final List<List<A>> a) {
         return filter(
             (A b) -> a.stream()
@@ -67,39 +67,39 @@ public class ZermeloTest {
 
     //////////////////////////////////////////////////
 
-    /**
-     * filter(P(x) := not x in b)(A)
-     */
+    //
+    // filter(P(x) := not x in b)(A)
+    //
     public static <A> List<A> b(final List<A> a, final List<A> b) {
         return filter((A x) -> !b.contains(x)).apply(a);
     }
 
-    /**
-     * flatten(pair(a \ b, b \ a))
-     */
+    //
+    // flatten(pair(a \ b, b \ a))
+    //
     public static <A> List<A> bSym(final List<A> a, final List<A> b) {
         return concat(b(a, b), b(b, a));
     }
 
-    /**
-     * P(a) := not a == empty & forall x. x in a -> a \ {x} == empty
-     */
+    //
+    // P(a) := not a == empty & forall x. x in a -> a \ {x} == empty
+    //
     private static <A> boolean sizeIsOne(final List<A> a) {
         return !a.isEmpty() && a.stream()
             .allMatch(x -> b(a, List.of(x)).isEmpty());
     }
 
-    /**
-     * P2(a) := forall x. x in a -> P(a \ {x})
-     */
+    //
+    // P2(a) := forall x. x in a -> P(a \ {x})
+    //
     private static <A> boolean sizeIsTwo(final List<A> a) {
         return a.stream()
             .allMatch(x -> sizeIsOne(b(a, List.of(x))));
     }
 
-    /**
-     * flatten(pair(a * {0}, b * {1}))
-     */
+    //
+    // flatten(pair(a * {0}, b * {1}))
+    //
     public static <A> List<List<A>> c(final List<A> a, final List<A> b, final A zero, final A one) {
         return concat(
             d(a, List.of(zero)),
@@ -107,9 +107,9 @@ public class ZermeloTest {
         );
     }
 
-    /**
-     * filter(P(set) := sizeIsTwo(set) & sizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
-     */
+    //
+    // filter(P(set) := sizeIsTwo(set) & sizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
+    //
     public static <A> List<List<A>> d(final List<A> a, final List<A> b) {
         return filter((List<A> set) -> sizeIsTwo(set) && sizeIsOne(b(set, b)))
             .apply(powerSet(concat(a, b)));
