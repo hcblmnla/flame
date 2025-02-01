@@ -48,8 +48,8 @@ public class FlameCommand implements Callable<Void> {
     @CommandLine.Option(names = {"-sym", "--symmetries"}, defaultValue = "1")
     String symmetries;
 
-    @CommandLine.Option(names = {"-t", "--nThreads"}, defaultValue = "8")
-    String nThreads;
+    @CommandLine.Option(names = {"-t", "--threads"}, defaultValue = "8")
+    String threads;
 
     @CommandLine.Option(names = {"-f", "--format"}, defaultValue = "png")
     String extension;
@@ -63,7 +63,7 @@ public class FlameCommand implements Callable<Void> {
      * @param samples    point count
      * @param iterations iterations count
      * @param symmetries symmetries count
-     * @param nThreads   threads count
+     * @param threads    threads count
      * @param format     image format (with extension)
      * @throws UnknownVariationException if variations contains unknown name
      * @throws IOException               if I/O exception occurred
@@ -76,11 +76,11 @@ public class FlameCommand implements Callable<Void> {
         final int samples,
         final int iterations,
         final int symmetries,
-        final int nThreads,
+        final int threads,
         final ImageFormat format
     ) throws UnknownVariationException, IOException, InterruptedException {
         var random = ThreadLocalRandom.current();
-        var generator = (nThreads == 1 ? SingleThreadGenerator.builder() : MultiThreadGenerator.builder())
+        var generator = (threads == 1 ? SingleThreadGenerator.builder() : MultiThreadGenerator.builder())
 
             .width(resolution.width())
             .height(resolution.height())
@@ -89,7 +89,7 @@ public class FlameCommand implements Callable<Void> {
             .processor(new LogGammaCorrection())
             .background(ColoredPixel.DEFAULT_COLOR)
             .random(random)
-            .nThreads(nThreads)
+            .threads(threads)
             .build();
 
         var affine = Affine.defaults(random);
@@ -100,7 +100,7 @@ public class FlameCommand implements Callable<Void> {
             .toList();
 
         var filename = "%s-%d-%d".formatted(sj.toString(), samples, iterations);
-        log(writer, "Generating %s in %d thread(s)", filename, nThreads);
+        log(writer, "Generating %s in %d thread(s)", filename, threads);
 
         long start = System.nanoTime();
         var image = generator.generate(affine, vs, samples, iterations, symmetries);
@@ -142,7 +142,7 @@ public class FlameCommand implements Callable<Void> {
                     Integer.parseInt(samples),
                     Integer.parseInt(iterations),
                     Integer.parseInt(symmetries),
-                    Integer.parseInt(nThreads),
+                    Integer.parseInt(threads),
                     ImageFormat.valueOf(extension.toUpperCase())
                 );
             } catch (final NumberFormatException e) {

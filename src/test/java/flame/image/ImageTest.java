@@ -35,7 +35,7 @@ public class ImageTest {
             .isEqualTo(image.height() / height)
             .isEqualTo(compression);
 
-        image.forEach((x, y) -> assertThat(image.pixel(x, y).get())
+        image.forEach((x, y) -> assertThat(image.getPixel(x, y).get())
             .isEqualTo(background));
 
         for (int y = 0; y < height * compression; y++) {
@@ -53,8 +53,8 @@ public class ImageTest {
             .isFalse();
 
         // When
-        image.pixel(0, 0, new ColoredPixel(1, 1, 1, 10));
-        image.pixel(699, 419, new ColoredPixel(2, 2, 2, 11));
+        image.setPixel(0, 0, new ColoredPixel(1, 1, 1, 10));
+        image.setPixel(699, 419, new ColoredPixel(2, 2, 2, 11));
 
         var buffered = image.toBufferedImage();
 
@@ -72,7 +72,7 @@ public class ImageTest {
         image.forEachApply((_, _) -> new ColoredPixel(Color.BLUE));
 
         // Then
-        image.forEach((x, y) -> assertThat(image.pixel(x, y).get())
+        image.forEach((x, y) -> assertThat(image.getPixel(x, y).get())
             .isEqualTo(Color.BLUE));
     }
 }

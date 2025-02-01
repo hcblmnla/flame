@@ -18,8 +18,8 @@ class MultiThreadGeneratorTest {
     @Test
     void handleShouldWorkWithSingleThreadToo() throws InterruptedException {
         // Given
-        var single = SingleThreadGenerator.builder().nThreads(1).build();
-        var multi = MultiThreadGenerator.builder().nThreads(8).build();
+        var single = SingleThreadGenerator.builder().threads(1).build();
+        var multi = MultiThreadGenerator.builder().threads(8).build();
         var counter = new AtomicInteger();
 
         // When
@@ -34,7 +34,7 @@ class MultiThreadGeneratorTest {
     @Test
     void handleShouldSubmitAllTasks() throws InterruptedException {
         // Given
-        var generator = MultiThreadGenerator.builder().nThreads(8).build();
+        var generator = MultiThreadGenerator.builder().threads(8).build();
         var counter = new AtomicInteger();
         int threads = 12;
 

@@ -16,12 +16,12 @@ public final class AtomicColoredImage extends AbstractColoredImage<AtomicReferen
     }
 
     @Override
-    public ColoredPixel pixel(final int x, final int y) {
+    public ColoredPixel getPixel(final int x, final int y) {
         return grid.get(coordinate(x, y));
     }
 
     @Override
-    public void pixel(final int x, final int y, final ColoredPixel value) {
+    public void setPixel(final int x, final int y, final ColoredPixel value) {
         grid.set(coordinate(x, y), value);
     }
 

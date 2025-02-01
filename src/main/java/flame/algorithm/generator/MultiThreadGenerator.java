@@ -17,7 +17,7 @@ public final class MultiThreadGenerator extends AbstractFlameGenerator {
     @Override
     public void handleSamples(final int samples, final Runnable sampler)
         throws InterruptedException {
-        try (var executor = Executors.newFixedThreadPool(nThreads)) {
+        try (var executor = Executors.newFixedThreadPool(threads)) {
             Collections.nCopies(samples, sampler)
                 .forEach(executor::submit);
             executor.shutdown();

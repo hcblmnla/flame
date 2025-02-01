@@ -41,7 +41,7 @@ public interface Image<I> {
      * @param y height coordinate
      * @return pixel from {@code (x, y)} coordinate
      */
-    I pixel(int x, int y);
+    I getPixel(int x, int y);
 
     /**
      * Pixel setter.
@@ -49,7 +49,7 @@ public interface Image<I> {
      * @param x width coordinate
      * @param y height coordinate
      */
-    void pixel(int x, int y, I value);
+    void setPixel(int x, int y, I value);
 
     /**
      * Accepts {@link GridConsumer} for all pixels in the image.
@@ -65,7 +65,7 @@ public interface Image<I> {
     }
 
     default void forEachApply(final GridFunction<I> mapper) {
-        forEach((x, y) -> pixel(x, y, mapper.apply(x, y)));
+        forEach((x, y) -> setPixel(x, y, mapper.apply(x, y)));
     }
 
     I max(Comparator<? super I> comparator);

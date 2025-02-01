@@ -25,7 +25,7 @@ public abstract sealed class AbstractColoredImage<G>
         this.compression = compression;
         grid = grid();
         var backgroundPixel = new ColoredPixel(background);
-        forEach((x, y) -> pixel(x, y, backgroundPixel));
+        forEach((x, y) -> setPixel(x, y, backgroundPixel));
     }
 
     protected abstract G grid();
@@ -54,7 +54,7 @@ public abstract sealed class AbstractColoredImage<G>
 
                 for (int dy = 0; dy < compression; dy++) {
                     for (int dx = 0; dx < compression; dx++) {
-                        pixels.add(pixel(x * compression + dx, y * compression + dy));
+                        pixels.add(getPixel(x * compression + dx, y * compression + dy));
                     }
                 }
                 image.setRGB(x, y, ColoredPixel.average(pixels).get().getRGB());

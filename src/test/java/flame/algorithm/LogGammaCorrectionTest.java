@@ -11,7 +11,7 @@ import java.awt.*;
 public class LogGammaCorrectionTest {
 
     @Test
-    void acceptShouldCorrectUpdateImage() {
+    void acceptShouldCorrectlyUpdateImage() {
         // Given
         var grid = new ColoredPixel[][]{
             {new ColoredPixel(1, 1, 1, 100), new ColoredPixel(10, 10, 10, 10)},
@@ -28,7 +28,7 @@ public class LogGammaCorrectionTest {
         // When
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < 2; x++) {
-                image.pixel(x, y, grid[x][y]);
+                image.setPixel(x, y, grid[x][y]);
             }
         }
         processor.accept(image);
@@ -36,7 +36,7 @@ public class LogGammaCorrectionTest {
         // Then
         for (int y = 0; y < 2; y++) {
             for (int x = 0; x < 2; x++) {
-                Assertions.assertThat(image.pixel(x, y))
+                Assertions.assertThat(image.getPixel(x, y))
                     .isEqualTo(processed[y][x]);
             }
         }

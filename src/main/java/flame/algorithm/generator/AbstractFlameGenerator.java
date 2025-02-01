@@ -25,7 +25,7 @@ public abstract sealed class AbstractFlameGenerator
     protected final int compression;
 
     protected final Color background;
-    protected final int nThreads;
+    protected final int threads;
 
     private final ImageProcessor<ColoredPixel> processor;
     private final Random random;
@@ -104,8 +104,8 @@ public abstract sealed class AbstractFlameGenerator
                     continue;
                 }
 
-                var pixel = image.pixel(x, y);
-                image.pixel(x, y, updateColor(affine, pixel).hit());
+                var pixel = image.getPixel(x, y);
+                image.setPixel(x, y, updateColor(affine, pixel).hit());
             }
         }
     }

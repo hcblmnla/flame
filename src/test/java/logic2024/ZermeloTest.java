@@ -1,4 +1,4 @@
-package logic;
+package logic2024;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,8 +65,6 @@ public class ZermeloTest {
             .apply(flatten(a));
     }
 
-    //////////////////////////////////////////////////
-
     //
     // filter(P(x) := not x in b)(A)
     //
@@ -82,7 +80,7 @@ public class ZermeloTest {
     }
 
     //
-    // P(a) := not a == empty & forall x. x in a -> a \ {x} == empty
+    // SizeIsOne(a) := not a == empty & forall x. x in a -> a \ {x} == empty
     //
     private static <A> boolean sizeIsOne(final List<A> a) {
         return !a.isEmpty() && a.stream()
@@ -90,7 +88,7 @@ public class ZermeloTest {
     }
 
     //
-    // P2(a) := forall x. x in a -> P(a \ {x})
+    // SizeIsTwo(a) := forall x. x in a -> P(a \ {x})
     //
     private static <A> boolean sizeIsTwo(final List<A> a) {
         return a.stream()
@@ -108,7 +106,7 @@ public class ZermeloTest {
     }
 
     //
-    // filter(P(set) := sizeIsTwo(set) & sizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
+    // filter(P(set) := SizeIsTwo(set) & SizeIsOne(set \ b))(powerSet(flatten(pair(a, b))))
     //
     public static <A> List<List<A>> d(final List<A> a, final List<A> b) {
         return filter((List<A> set) -> sizeIsTwo(set) && sizeIsOne(b(set, b)))

@@ -33,7 +33,7 @@ public class LogGammaCorrection implements ImageProcessor<ColoredPixel> {
                 .hitCount()
         );
         image.forEachApply((x, y) -> {
-            var pixel = image.pixel(x, y);
+            var pixel = image.getPixel(x, y);
 
             if (pixel.hitCount() == 0) {
                 return pixel;

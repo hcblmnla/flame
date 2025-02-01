@@ -19,12 +19,12 @@ class EmptyImage implements Image<Integer> {
     }
 
     @Override
-    public Integer pixel(final int x, final int y) {
+    public Integer getPixel(final int x, final int y) {
         return 1;
     }
 
     @Override
-    public void pixel(final int x, final int y, final Integer value) {
+    public void setPixel(final int x, final int y, final Integer value) {
     }
 
     @Override
