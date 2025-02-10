@@ -1,6 +1,6 @@
 # Flame
 
-The Chaos game implementation. Pure Java with picocli. The project is old, the code is not perfect, but..
+The Chaos game implementation. Pure Java with picocli
 
 ## Example
 
