@@ -27,5 +27,5 @@ java -jar flame.jar --help
 
 ## But
 
-[Here](src/test/java/logic2024) are the solutions to the problems of Zermelo–Fraenkel
-set [theory](https://en.wikipedia.org/wiki/Zermelo%E2%80%93Fraenkel_set_theory).
+Here you can find some solutions to the problems of Zermelo–Fraenkel 
+set theory.
